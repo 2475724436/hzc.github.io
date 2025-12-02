@@ -1,70 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的第一个网页</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小猫道歉</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+            text-align: center;
+            background-color: #e6f7ff; /* 淡蓝色背景 */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        .cat-container {
+            position: relative;
+            margin-bottom: 30px;
         }
-        h1 {
-            color: #2c3e50;
+
+        .cat-image {
+            width: 200px;
+            height: auto;
+            animation: bow 2s ease-in-out infinite;
+            cursor: pointer;
         }
-        .emoji {
-            font-size: 3em;
-            margin: 20px 0;
+
+        @keyframes bow {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(15deg);
+            }
         }
-        .info-box {
-            background: #e8f4fc;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            margin: 20px 0;
+
+        .message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .forgive {
+            background-color: #52c41a; /* 原谅绿色 */
+        }
+
+        .forgive:hover {
+            background-color: #389e0d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .refuse {
+            background-color: #ff4d4f; /* 拒绝红色 */
+        }
+
+        .refuse:hover {
+            background-color: #cf1322;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .final-message {
+            font-size: 28px;
+            color: #52c41a;
+            font-weight: bold;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .sad-cat {
+            width: 180px;
+            height: auto;
+            animation: cry 2s ease-in-out infinite;
+        }
+
+        @keyframes cry {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+        }
+
+        .tear {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #1890ff;
+            border-radius: 50%;
+            animation: tear-drop 1.5s ease-in-out infinite;
+        }
+
+        .tear1 {
+            top: 60px;
+            left: 70px;
+        }
+
+        .tear2 {
+            top: 60px;
+            right: 70px;
+        }
+
+        @keyframes tear-drop {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎉 欢迎访问我的网页！</h1>
-        
-        <div class="emoji">👋</div>
-        
-        <p>你好！这是一个非常简单的示例网页。</p>
-        
-        <div class="info-box">
-            <strong>网页信息：</strong>
-            <p>创建时间：<span id="current-date"></span></p>
-            <p>访问次数：<span id="visit-count">1</span></p>
+    <!-- 主页面内容 -->
+    <div id="mainContent">
+        <div class="cat-container">
+            < img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=200&fit=crop" alt="道歉小猫" class="cat-image" id="catImage">
+            <div class="tear tear1"></div>
+            <div class="tear tear2"></div>
         </div>
-        
-        <h2>这个小网页包含：</h2>
-        <ul>
-            <li>响应式设计</li>
-            <li>简单样式</li>
-            <li>一点点JavaScript</li>
-            <li>友好的界面</li>
-        </ul>
-        
-        <p>试试把这段代码保存为 <code>index.html</code> 然后在浏览器中打开！</p>
+        <div class="message">
+            对不起，我犯错了...<br>
+            你愿意原谅我吗？<br>
+            <small style="color: #999; font-size: 16px;">点击小猫听它道歉</small>
+        </div>
+        <div class="buttons">
+            <button class="button forgive" id="forgiveButton">原谅我吧</button>
+            <button class="button refuse" id="refuseButton">我还在生气</button>
+        </div>
+    </div>
+
+    <!-- 被原谅后的页面 -->
+    <div id="forgivenContent" class="hidden">
+        < img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=300&h=200&fit=crop" alt="开心小猫" class="cat-image">
+        <div class="final-message">谢谢你！我会做个好朋友的！</div>
+        <div style="margin-top: 20px; font-size: 18px; color: #666;">
+            我们的友谊会更坚固~
+        </div>
+    </div>
+
+    <!-- 被拒绝后的页面 -->
+    <div id="refusedContent" class="hidden">
+        <div class="cat-container">
+            < img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=200&fit=crop" alt="伤心小猫" class="sad-cat">
+            <div class="tear tear1"></div>
+            <div class="tear tear2"></div>
+        </div>
+        <div class="message" style="color: #999;">
+            我理解你的感受...<br>
+            我会等你准备好再谈和的<br>
+            <small style="color: #ccc; font-size: 14px;">真正的朋友值得等待</small>
+        </div>
     </div>
 
     <script>
-        // 显示当前日期
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
-        
-        // 简单的访问计数
-        let count = localStorage.getItem('visitCount') || 1;
-        document.getElementById('visit-count').textContent = count;
-        localStorage.setItem('visitCount', parseInt(count) + 1);
+        const mainContent = document.getElementById('mainContent');
+        const forgivenContent = document.getElementById('forgivenContent');
+        const refusedContent = document.getElementById('refusedContent');
+        const forgiveButton = document.getElementById('forgiveButton');
+        const refuseButton = document.getElementById('refuseButton');
+        const catImage = document.getElementById('catImage');
+
+        // 点击小猫播放音效（模拟）
+        catImage.addEventListener('click', () => {
+            catImage.style.animation = 'none';
+            setTimeout(() => {
+                catImage.style.animation = 'bow 2s ease-in-out infinite';
+            }, 10);
+            
+            // 模拟猫叫声
+            console.log('喵~ 对不起！');
+        });
+
+        // 原谅按钮
+        forgiveButton.addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            forgivenContent.classList.remove('hidden');
+        });
+
+        // 拒绝按钮
+        refuseButton.addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            refusedContent.classList.remove('hidden');
+        });
     </script>
 </body>
 </html>
+
